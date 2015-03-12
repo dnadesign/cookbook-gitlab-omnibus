@@ -16,3 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+gitlab_package 'gitlab' do
+  package_url node['gitlab']['omnibus']['url']
+  checksum node['gitlab']['omnibus']['checksum']
+  version node['gitlab']['omnibus']['package_version']
+  reconfigure true
+end
