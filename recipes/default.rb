@@ -21,5 +21,32 @@ gitlab_package 'gitlab' do
   package_url node['gitlab']['omnibus']['url']
   checksum node['gitlab']['omnibus']['checksum']
   version node['gitlab']['omnibus']['package_version']
-  reconfigure true
+end
+
+template '/etc/gitlab/gitlab.rb' do
+  owner 'root'
+  group 'root'
+  mode '0600'
+  helpers(Gitlab::Helpers)
+  variables({
+    external_url:    node['gitlab']['config']['external_url'] || "http://#{node['fqdn']}/",
+    gitlab_rails:    node['gitlab']['config']['gitlab_rails'],
+    ldap_servers:    node['gitlab']['config']['ldap_servers'],
+    user:            node['gitlab']['config']['user'],
+    unicorn:         node['gitlab']['config']['unicorn'],
+    sidekiq:         node['gitlab']['config']['sidekiq'],
+    gitlab_shell:    node['gitlab']['config']['gitlab_shell'],
+    postgresql:      node['gitlab']['config']['postgresql'],
+    redis:           node['gitlab']['config']['redis'],
+    web_server:      node['gitlab']['config']['web_server'],
+    nginx:           node['gitlab']['config']['nginx'],
+    logging:         node['gitlab']['config']['logging'],
+    logrotate:       node['gitlab']['config']['logrotate'],
+    ci_external_url: node['gitlab']['config']['ci_external_url'],
+    gitlab_ci:       node['gitlab']['config']['gitlab_ci'],
+    ci_unicorn:      node['gitlab']['config']['ci_unicorn'],
+    ci_redis:        node['gitlab']['config']['ci_redis'],
+    ci_nginx:        node['gitlab']['config']['ci_nginx']
+  })
+  notifies :reconfigure, 'gitlab_package[gitlab]'
 end
