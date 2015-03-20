@@ -1,14 +1,13 @@
 # gitlab-omnibus-cookbook
 
 This chef cookbook downloads the official gitlab-omnibus package, and installs it.
-This cookbook also manages the configuration for the installation at `/etc/gitlab/gitlab.rb` which can be configurated via attributes in this cookbook. For a full list of available options, see https://gitlab.com/gitlab-org/omnibus-gitlab/raw/master/files/gitlab-config-template/gitlab.rb.template for the corresponding version that you are installing.
+This cookbook also manages the configuration for the installation at `/etc/gitlab/gitlab.rb` which can be configurated via attributes in this cookbook. For a full list of available options, see [the omnibus template](https://gitlab.com/gitlab-org/omnibus-gitlab/raw/master/files/gitlab-config-template/gitlab.rb.template) for the corresponding version that you are installing.
 
 This cookbook does not manage SSL Certificates for you, it is up to you to manage with another cookbok, or manually - To configure TLS, set the appropriate attributes to point this cookbook at your certificate on disk.
 
 ## Supported Platforms
 
-This cookbook should support all platforms that the omnibus packages support.
-See https://about.gitlab.com/downloads/archives/ && https://about.gitlab.com/downloads/ for more details about the packages available - or compile your own with https://gitlab.com/gitlab-org/omnibus-gitlab/
+Out of the box, this cookbook supports ubuntu, debian, redhat, centos, amazon, scientific - as those are the platforms gitlab builds their omnibus package for. Check https://about.gitlab.com/downloads/ for a list of up to date supported platforms. You may also compile your own packages with https://gitlab.com/gitlab-org/omnibus-gitlab/
 
 ## Attributes
 
@@ -60,7 +59,7 @@ Further configuration of the installation is managed via:
 * `['gitlab']['config']['ci_redis']` (Hash)
 * `['gitlab']['config']['ci_nginx']` (Hash)
 
-See https://gitlab.com/gitlab-org/omnibus-gitlab/raw/master/files/gitlab-config-template/gitlab.rb.template for a list of available options.
+See [the omnibus template](https://gitlab.com/gitlab-org/omnibus-gitlab/raw/master/files/gitlab-config-template/gitlab.rb.template) for a list of available options.
 
 ## Usage
 
