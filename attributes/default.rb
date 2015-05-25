@@ -1,9 +1,9 @@
 default['gitlab']['version'] = '7.11.2'
 
-case node['platform_family']
-when 'debian'
+case node['platform']
+when 'debian', 'ubuntu'
   default['gitlab']['package_format'] = 'deb'
-when 'rhel', 'fedora', 'amazon'
+when 'centos', 'redhat', 'amazon', 'scientific', 'fedora'
   default['gitlab']['package_format'] = 'rpm'
 else
   Chef::Log.error("Could not detect compatible package format for gitlab - please specify `['gitlab']['package_format']` as either 'deb' or 'rpm'")

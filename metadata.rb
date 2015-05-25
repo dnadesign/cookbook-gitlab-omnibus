@@ -6,7 +6,7 @@ description      'Installs/Configures gitlab-omnibus'
 long_description 'Installs/Configures gitlab-omnibus'
 version          '7.11.2'
 
-['ubuntu', 'debian', 'redhat', 'centos', 'amazon', 'scientific'].each do |os|
+['ubuntu', 'debian', 'centos', 'redhat', 'amazon', 'scientific', 'fedora'].each do |os|
   supports os
 end
 

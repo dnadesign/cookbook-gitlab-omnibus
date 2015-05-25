@@ -1,0 +1,11 @@
+machine:
+  ruby:
+    version: 2.1.0
+  services:
+    - docker
+
+test:
+  override:
+    - bundle exec cane .
+    - bundle exec foodcritic .
+    - bundle exec kitchen converge all
