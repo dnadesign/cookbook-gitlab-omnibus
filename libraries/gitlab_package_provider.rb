@@ -27,10 +27,7 @@ class Chef
         end
 
         if new_resource.reconfigure
-          ctl_cmd = ctl_command
-          execute "#{new_resource.package_name}-reconfigure" do
-            command "#{ctl_cmd} reconfigure"
-          end
+          reconfigure_gitlab
         end
       end
 
@@ -45,10 +42,7 @@ class Chef
       end
 
       action :reconfigure do
-        ctl_cmd = ctl_command
-        execute "#{new_resource.package_name}-reconfigure" do
-          command "#{ctl_cmd} reconfigure"
-        end
+        reconfigure_gitlab
       end
 
       private
@@ -57,10 +51,10 @@ class Chef
         new_resource.ctl_command
       end
 
-      def reconfigure
+      def reconfigure_gitlab
         ctl_cmd = ctl_command
         execute "#{new_resource.package_name}-reconfigure" do
-          command "#{ctl_cmd} reconfigure"
+          command "#{ctl_cmd} reconfigure --verbose"
         end
       end
 
