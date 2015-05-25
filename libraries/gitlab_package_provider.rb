@@ -1,11 +1,8 @@
-# require 'uri'
-# require 'pathname'
-
 class Chef
   class Provider
     class GitlabPackage < Chef::Provider::LWRPBase
 
-      use_inline_resources
+      use_inline_resources if defined?(use_inline_resources)
 
       def whyrun_supported?
         true
@@ -19,26 +16,14 @@ class Chef
 
       action :install do
 
-        package_filename = new_resource.package_url.split('/').last
-
-        remote_file "#{Chef::Config[:file_cache_path]}/#{package_filename}" do
-          source new_resource.package_url
-          checksum new_resource.checksum
-          action :create_if_missing
-        end
-
-        case node['platform_family']
-        when 'debian'
-          package_provider = Chef::Provider::Package::Dpkg
-        when 'rhel', 'fedora'
-          package_provider = Chef::Provider::Package::Rpm
+        packagecloud_repo "gitlab/gitlab-ce" do
+          base_url new_resource.repo_base_url
+          type node['gitlab']['package_format']
         end
 
         package new_resource.package_name do
-          source "#{Chef::Config[:file_cache_path]}/#{package_filename}"
           version new_resource.version
-          options new_resource.options
-          provider package_provider
+          action :upgrade
         end
 
         if new_resource.reconfigure

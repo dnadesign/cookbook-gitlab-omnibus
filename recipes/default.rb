@@ -17,10 +17,9 @@
 # limitations under the License.
 #
 
-gitlab_package 'gitlab' do
-  package_url node['gitlab']['omnibus']['url']
-  checksum node['gitlab']['omnibus']['checksum']
-  version node['gitlab']['omnibus']['package_version']
+gitlab_package 'gitlab-ce' do
+  package_repo "gitlab/gitlab-ce"
+  version node['gitlab']['version']
 end
 
 template '/etc/gitlab/gitlab.rb' do
@@ -48,5 +47,5 @@ template '/etc/gitlab/gitlab.rb' do
     ci_redis:        node['gitlab']['config']['ci_redis'],
     ci_nginx:        node['gitlab']['config']['ci_nginx']
   })
-  notifies :reconfigure, 'gitlab_package[gitlab]'
+  notifies :reconfigure, 'gitlab_package[gitlab-ce]'
 end

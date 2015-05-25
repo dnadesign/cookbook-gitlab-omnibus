@@ -19,22 +19,10 @@ Out of the box, this cookbook supports ubuntu, debian, redhat, centos, amazon, s
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['gitlab']['omnibus']['package_version']</tt></td>
+    <td><tt>['gitlab']['version']</tt></td>
     <td>String</td>
     <td>The package version number</td>
-    <td><tt>'7.8.2-omnibus.1-1'</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['gitlab']['omnibus']['url']</tt></td>
-    <td>String</td>
-    <td>The URL to download the package from</td>
-    <td>Determined based on platform</td>
-  </tr>
-  <tr>
-    <td><tt>['gitlab']['omnibus']['checksum']</tt></td>
-    <td>String</td>
-    <td>The sha256 checksum of the package you are downloading</td>
-    <td></td>
+    <td><tt>'7.11.2'</tt></td>
   </tr>
 </table>
 
@@ -43,7 +31,6 @@ Further configuration of the installation is managed via:
 * `['gitlab']['config']['external_url']` (String)
 * `['gitlab']['config']['ci_external_url']` (String)
 * `['gitlab']['config']['gitlab_rails']` (Hash)
-* `['gitlab']['config']['ldap_servers']` (Hash)
 * `['gitlab']['config']['user']` (Hash)
 * `['gitlab']['config']['unicorn']` (Hash)
 * `['gitlab']['config']['sidekiq']` (Hash)
@@ -59,7 +46,7 @@ Further configuration of the installation is managed via:
 * `['gitlab']['config']['ci_redis']` (Hash)
 * `['gitlab']['config']['ci_nginx']` (Hash)
 
-See [the omnibus template](https://gitlab.com/gitlab-org/omnibus-gitlab/raw/master/files/gitlab-config-template/gitlab.rb.template) for a list of available options.
+See [the omnibus template](https://gitlab.com/gitlab-org/omnibus-gitlab/raw/7-11-stable/files/gitlab-config-template/gitlab.rb.template) for a list of available options.
 
 ## Usage
 
@@ -84,6 +71,47 @@ Include `gitlab-omnibus` in your node's `run_list`:
   ]
 }
 ```
+
+The default admin password is user: `root` password: `5iveL!fe`
+
+## Gitlab CI setup
+
+Gitlab CI setup is a little trickier. While the gitlab package installed by this cookbook does include gitlab-ci (which can be enabled or disabled), it should be noted that the gitlab-ci service is actually a co-ordinator, and another 'job runner' service is required to actually run the jobs. Note: _A runner service is **not** included_ in this recipe, there are multiple projects that can fulfil this need, such as https://github.com/gitlabhq/gitlab-ci-runner#installation or https://github.com/ayufan/gitlab-ci-multi-runner
+
+Below are the steps to setup authentication between gitlab and the gitlab-ci co-ordinator service
+
+1. Run chef with this recipe
+2. Browse to your gitlab URL in a browser, and login (default credentials are user: `root` password: `5iveL!fe`)
+3. Navigate to the Admin > Applications section, and create a new application. Give it a name like 'Gitlab CI' and use `http://GITLABCI_DOMAIN/user_sessions/callback` for the URL.
+4. This will provide you with an application id, and secret. Set these as attributes on your gitlabci node at `['gitlab']['config']['gitlab_ci']['app_id']` and `['gitlab']['config']['gitlab_ci']['app_secret']`
+5. Re-run this chef recipe which fills those items into the config file, and reconfigures the service
+6. Browse to your Gitlab CI url, and now login via gitlab. Click 'Authorize', and you'll be logged into gitlab ci.
+
+Example node attributes:
+
+```json
+{
+  "gitlab": {
+    "config": {
+      "external_url": "https://gitlab.example.com",
+      "ci_external_url": "https://gitlab-ci.example.com",
+      "nginx": {
+        "ssl_certificate": "/etc/ssl/private/star.example.crt",
+        "ssl_certificate_key": "/etc/ssl/private/star.example.key"
+      },
+      "gitlab_ci": {
+        "gitlab_server": {
+          "url": "https://gitlab.example.com",
+          "app_id": "ed3a1e278da9872c5df75907157296bc28d8e14feb28c1b37087a6c94b127e85",
+          "app_secret": "b2c08175e85d74fdd2996e3041c88d63a34a615119e851e8fb24a60d573d3dd9"
+        }
+      }
+    }
+  }
+}
+```
+
+Configuring the runner requires additional setup from the gitlab-ci admin interface.
 
 ## License and Authors
 
