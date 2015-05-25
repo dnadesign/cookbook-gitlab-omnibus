@@ -8,4 +8,4 @@ test:
   override:
     - bundle exec cane .
     - bundle exec foodcritic .
-    - bundle exec kitchen converge all
+    - bundle exec kitchen converge all -l debug

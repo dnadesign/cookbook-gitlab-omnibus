@@ -54,7 +54,7 @@ class Chef
       def reconfigure_gitlab
         ctl_cmd = ctl_command
         execute "#{new_resource.package_name}-reconfigure" do
-          command "#{ctl_cmd} reconfigure --verbose"
+          command "#{ctl_cmd} reconfigure"
         end
       end
 
