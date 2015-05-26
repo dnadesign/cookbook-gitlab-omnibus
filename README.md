@@ -1,5 +1,7 @@
 # gitlab-omnibus-cookbook
 
+[![Circle CI](https://circleci.com/gh/dnadesign/cookbook-gitlab-omnibus.svg?style=svg)](https://circleci.com/gh/dnadesign/cookbook-gitlab-omnibus)
+
 This chef cookbook downloads the official gitlab-omnibus package, and installs it.
 This cookbook also manages the configuration for the installation at `/etc/gitlab/gitlab.rb` which can be configurated via attributes in this cookbook. For a full list of available options, see [the omnibus template](https://gitlab.com/gitlab-org/omnibus-gitlab/raw/master/files/gitlab-config-template/gitlab.rb.template) for the corresponding version that you are installing.
 
