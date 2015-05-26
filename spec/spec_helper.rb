@@ -1,6 +1,8 @@
 require 'chefspec'
 require 'chefspec/berkshelf'
 
+CENTOS = {platform: 'centos', version: '6.4'}
+
 RSpec.configure do |config|
   # Specify the path for Chef Solo to find cookbooks
   # config.cookbook_path = '/var/cookbooks'

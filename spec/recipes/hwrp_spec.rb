@@ -1,7 +1,9 @@
 require_relative '../spec_helper'
 
 describe 'gitlab-omnibus::default provider internals' do
-  let(:chef_run) { ChefSpec::SoloRunner.new(step_into: ['gitlab_package']).converge('gitlab-omnibus::default') }
+  let(:chef_run) do
+    ChefSpec::SoloRunner.new(step_into: ['gitlab_package']).converge('gitlab-omnibus::default')
+  end
 
   it 'adds gitlab packagecloud repo' do
     expect(chef_run).to create_packagecloud_repo('gitlab/gitlab-ce').with(type: 'deb')
@@ -14,7 +16,9 @@ describe 'gitlab-omnibus::default provider internals' do
 end
 
 describe 'centos gitlab-omnibus::default provider internals' do
-  let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'centos', version: '6.4', step_into: ['gitlab_package']).converge('gitlab-omnibus') }
+  let(:chef_run) do
+    ChefSpec::SoloRunner.new(CENTOS.merge(step_into: ['gitlab_package'])).converge('gitlab-omnibus')
+  end
 
   it 'adds gitlab packagecloud repo' do
     expect(chef_run).to create_packagecloud_repo('gitlab/gitlab-ce').with(type: 'rpm')
