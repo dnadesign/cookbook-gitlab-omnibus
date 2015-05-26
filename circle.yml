@@ -7,6 +7,6 @@ machine:
 test:
   override:
     - bundle exec cane
-    - bundle exec foodcritic . -X spec
+    - bundle exec foodcritic . -X spec --epic-fail any
     - bundle exec rspec --color
     # - bundle exec kitchen converge all -l debug
