@@ -16,3 +16,15 @@ describe 'gitlab-omnibus::default' do
     expect(resource).to notify('gitlab_package[gitlab-ce]').to(:reconfigure)
   end
 end
+
+describe 'setting custom version of gitlab' do
+  let(:chef_run) do
+    ChefSpec::SoloRunner.new do |node|
+      node.set['gitlab']['version'] = '7.10.4'
+    end.converge('gitlab-omnibus::default')
+  end
+
+  it 'installs the correct version of gitlab' do
+    expect(chef_run).to install_gitlab_package('gitlab-ce').with_version("7.10.4")
+  end
+end
