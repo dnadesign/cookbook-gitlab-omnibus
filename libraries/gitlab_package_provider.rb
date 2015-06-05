@@ -23,7 +23,7 @@ class Chef
 
         package new_resource.package_name do
           version new_resource.version
-          action :upgrade
+          action :install
         end
 
         if new_resource.reconfigure

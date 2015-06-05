@@ -24,9 +24,11 @@ Out of the box, this cookbook supports ubuntu, debian, redhat, centos, amazon, s
     <td><tt>['gitlab']['version']</tt></td>
     <td>String</td>
     <td>The package version number</td>
-    <td><tt>'7.11.2'</tt></td>
+    <td><tt>'7.11.4~omnibus-1'</tt></td>
   </tr>
 </table>
+
+Browse the published packages to see available versions here: https://packages.gitlab.com/gitlab/gitlab-ce
 
 Further configuration of the installation is managed via:
 

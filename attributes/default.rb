@@ -1,4 +1,4 @@
-default['gitlab']['version'] = '7.11.2'
+default['gitlab']['version'] = '7.11.4~omnibus-1'
 
 case node['platform']
 when 'debian', 'ubuntu'

@@ -10,7 +10,7 @@ describe 'gitlab-omnibus::default provider internals' do
   end
 
   it 'upgrades gitlab package' do
-    expect(chef_run).to upgrade_package('gitlab-ce')
+    expect(chef_run).to install_package('gitlab-ce')
   end
 
 end
@@ -18,7 +18,7 @@ end
 describe 'centos gitlab-omnibus::default provider internals' do
   let(:chef_run) do
     ChefSpec::SoloRunner.new(CENTOS.merge(step_into: ['gitlab_package'])) do |node|
-      node.set['gitlab']['version'] = '7.10.4'
+      node.set['gitlab']['version'] = '7.10.4~omnibus-1'
     end.converge('gitlab-omnibus')
   end
 
@@ -27,7 +27,7 @@ describe 'centos gitlab-omnibus::default provider internals' do
   end
 
   it 'installs the gitlab-ce package with the correct version' do
-    expect(chef_run).to upgrade_package('gitlab-ce').with_version('7.10.4')
+    expect(chef_run).to install_package('gitlab-ce').with_version('7.10.4~omnibus-1')
   end
 
 end
