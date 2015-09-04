@@ -12,20 +12,23 @@ end
 
 ## Config
 
-default['gitlab']['config']['external_url']    = "http://#{node['fqdn']}/"
-default['gitlab']['config']['ci_external_url'] = "http://ci.#{node['fqdn']}/"
-default['gitlab']['config']['gitlab_rails']    = {}
-default['gitlab']['config']['user']            = {}
-default['gitlab']['config']['unicorn']         = {}
-default['gitlab']['config']['sidekiq']         = {}
-default['gitlab']['config']['gitlab_shell']    = {}
-default['gitlab']['config']['postgresql']      = {}
-default['gitlab']['config']['redis']           = {}
-default['gitlab']['config']['web_server']      = {}
-default['gitlab']['config']['nginx']           = {}
-default['gitlab']['config']['logging']         = {}
-default['gitlab']['config']['logrotate']       = {}
-default['gitlab']['config']['gitlab_ci']       = {}
-default['gitlab']['config']['ci_unicorn']      = {}
-default['gitlab']['config']['ci_redis']        = {}
-default['gitlab']['config']['ci_nginx']        = {}
+default['gitlab']['config']['external_url']            = "http://#{node['fqdn']}/"
+default['gitlab']['config']['ci_external_url']         = "http://ci.#{node['fqdn']}/"
+default['gitlab']['config']['mattermost_external_url'] = "http://mattermost.#{node['fqdn']}/"
+default['gitlab']['config']['gitlab_rails']            = {}
+default['gitlab']['config']['user']                    = {}
+default['gitlab']['config']['unicorn']                 = {}
+default['gitlab']['config']['sidekiq']                 = {}
+default['gitlab']['config']['gitlab_shell']            = {}
+default['gitlab']['config']['postgresql']              = {}
+default['gitlab']['config']['redis']                   = {}
+default['gitlab']['config']['web_server']              = {}
+default['gitlab']['config']['nginx']                   = {}
+default['gitlab']['config']['logging']                 = {}
+default['gitlab']['config']['logrotate']               = {}
+default['gitlab']['config']['gitlab_ci']               = {}
+default['gitlab']['config']['ci_unicorn']              = {}
+default['gitlab']['config']['ci_redis']                = {}
+default['gitlab']['config']['ci_nginx']                = {}
+default['gitlab']['config']['mattermost']              = {}
+default['gitlab']['config']['mattermost_nginx']        = {}
